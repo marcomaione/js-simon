@@ -1,15 +1,3 @@
-//imposto un timer di 30sec
-
-let secondi = 30;
-
-function ricorda() {
-    alert("scrivi i numeri visti precedentemente")
-}
-
-setTimeout(ricorda, secondi * 1000);
-
-
-
 //genero 5 numeri casuali tra uno e 100
 
 n = 5;
@@ -28,7 +16,21 @@ for (i = 0; i < n; i++) {
 }
 
 document.getElementById("random").innerHTML = testo;
-     
-     
-  
-  
+
+//imposto timer di 30 secondi poi chiedo all'utente di inserire i numeri visti precedentemente
+
+let secondi = 5;
+let nInseriti = "";
+function ricorda() {
+    alert("inserisci i numeri visti precedentemente");
+    for(let i = 0; i < 5; i++) {
+        let nInseriti = parseInt(prompt("inserisci i numeri"));
+        console.log(nInseriti);
+}
+    if(!nInseriti.includes(numeri)) {
+        console.log('hai inserito' + nInseriti);
+
+    }
+}
+    
+setTimeout(ricorda, secondi * 1000);
