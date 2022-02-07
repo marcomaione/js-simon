@@ -5,7 +5,7 @@
 }
 
 html {
-    background-color:lightpink;
+    background-color:rgb(163, 55, 163);
 }
 
 
@@ -18,12 +18,16 @@ html {
 }
 
 .center {
-    background-color: lightseagreen;
-    width: 250px;
+    background-color:blue;
+    width: 260px;
     height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: solid 5px lightgray;
+    border: solid 8px gray;
+}
+
+#random {
+    color: azure;
 }
 
