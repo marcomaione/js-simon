@@ -1,3 +1,15 @@
+//imposto un timer di 30sec
+
+let secondi = 30;
+
+function ricorda() {
+    alert("scrivi i numeri visti precedentemente")
+}
+
+setTimeout(ricorda, secondi * 1000);
+
+
+
 //genero 5 numeri casuali tra uno e 100
 
 n = 5;
