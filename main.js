@@ -1,36 +1,92 @@
-//genero 5 numeri casuali tra uno e 100
+// arrey per immagazzinare numeri generati
 
-n = 5;
+const numeriGenerati = [];
 
-testo = "";
+// genero 5 numeri casuali
 
-for (i = 0; i < n; i++) {
+while (numeriGenerati.length < 5) {
 
-    numeri = Math.round(Math.random() * 100 + 1);
+    const numeroCasuale = getRandomNumber(1, 100);
 
-    if (i > 0) {
-
-        testo += ", ";
-    }
-        testo += numeri;
-}
-
-document.getElementById("random").innerHTML = testo;
-
-//imposto timer di 30 secondi poi chiedo all'utente di inserire i numeri visti precedentemente
-
-let secondi = 5;
-let nInseriti = "";
-function ricorda() {
-    alert("inserisci i numeri visti precedentemente");
-    for(let i = 0; i < 5; i++) {
-        let nInseriti = parseInt(prompt("inserisci i numeri"));
-        console.log(nInseriti);
-}
-    if(!nInseriti.includes(numeri)) {
-        console.log('hai inserito' + nInseriti);
-
+    if (!numeriGenerati.includes(numeroCasuale)) {
+        numeriGenerati.push(numeroCasuale);
     }
 }
+
+// creo riferimento al tag html
+
+const elemMessaggio = document.getElementById('random');
+elemMessaggio.innerHTML = numeriGenerati;
+
+setTimeout(resetMessaggio, 30 * 1000);
+
+const ritardo = 30;
+
+// timeout che nasconde i numeri mostrati 
+setTimeout(resetMessaggio, ritardo * 1000);
+
+// timeout compatibilita con chrome un sec che chiede i numeri visti precedentemente
+setTimeout(function() {
+   
+    const numeriInseriti = getNumeriUtente();
+    console.log(numeriInseriti);
+
+    const numeriInovinati = verifaNumeri(numeriGenerati, numeriInseriti);
+
+    stampaNumeriIndovinati(numeriInovinati);
+
+}, (ritardo + 1) * 1000);
+
+function stampaNumeriIndovinati(arreyNumeriIndovinati) {
+
+    const qtaNumeriIndovinati = arreyNumeriIndovinati.length;
+
+    elemMessaggio.innerHTML = 'hai indovinato' + qtaNumeriIndovinati + 'numeri.' + arreyNumeriIndovinati;
     
-setTimeout(ricorda, secondi * 1000);
+
+}
+
+function verifaNumeri(arreyNumeriGenerati, arreyNumeriInseriti) {
+
+    const indovinati = [];
+
+    for (let i = 0; i < arreyNumeriInseriti.length; i ++) {
+
+        if (arreyNumeriGenerati.includes(numeriInseriti[i])) {
+            indovinati.push(arreyNumeriInseriti[i]);
+        }
+
+    }
+
+    return indovinati;
+}
+
+// funzione che chiede di inserire 5 numeri che pensa di ricordare e verifico siano corretti
+function getNumeriUtente() {
+
+    const numeriUtente = [];
+
+    while (numeriUtente.length < 5) {
+
+        const numero = parseInt(prompt('inserisci numero'));
+
+        if (!numeriUtente.includes(numero) && isNaN (numero) && numero <= 100 && numero > 0) {
+            numeriUtente.push(numero);
+        }
+    }
+
+
+    return numeriUtente;
+}
+
+
+//funzione che ripulisce html dopo 30 sec
+function resetMessaggio() {
+    elemMessaggio.innerHTML = '';
+}
+
+//genero un numero casuale tra min e max
+
+function getRandomNumber(min, max) {
+   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
